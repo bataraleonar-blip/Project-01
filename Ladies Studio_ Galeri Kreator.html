@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ladies Studio: Galeri Kreator</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14111F;--sf:#1F1A2E;--tx:#F3EFFA;--mu:#A79FBB;--ac:#FF6B8A;--gd:#F4C26B;--bd:#322B47;--on:#14111F}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#FBF8FF;--sf:#fff;--tx:#1D1530;--mu:#6B6280;--ac:#D6285A;--gd:#9A6A00;--bd:#E6DFF2;--on:#fff}}
+:root[data-theme="light"]{--bg:#FBF8FF;--sf:#fff;--tx:#1D1530;--mu:#6B6280;--ac:#D6285A;--gd:#9A6A00;--bd:#E6DFF2;--on:#fff}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 15px/1.5 "Plus Jakarta Sans",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding:0 12px 64px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid var(--bd)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px;letter-spacing:-.5px}
+.btn{border:0;border-radius:999px;padding:9px 18px;font-weight:600;background:var(--ac);color:var(--on)}
+.btn.ghost{background:transparent;border:1px solid var(--bd);color:var(--tx)}
+.btn.block{width:100%;padding:13px;border-radius:12px}
+.btn[disabled]{opacity:.6}
+.me{display:flex;gap:8px;align-items:center;font-size:13px}
+.badge{padding:3px 10px;border-radius:999px;border:1px solid var(--gd);color:var(--gd);font-weight:600;font-size:12px}
+.badge.off{border-color:var(--bd);color:var(--mu)}
+.srch{display:flex;gap:8px;padding-top:12px}.srch input,.srch select{padding:10px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);font:inherit}.srch input{flex:1;min-width:0}
+.creators{display:flex;gap:14px;overflow-x:auto;padding:14px 2px;scrollbar-width:none}
+.cr{background:none;border:0;padding:0;text-align:center;flex:0 0 auto;width:70px}
+.av{width:64px;height:64px;border-radius:50%;margin:0 auto 4px;display:grid;place-items:center;font-weight:800;font-size:22px;color:#fff;border:3px solid var(--bg);outline:2px solid var(--bd)}
+.cr.on .av{outline-color:var(--ac)}
+.cr span{font-size:12px;color:var(--mu);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cr.on span{color:var(--tx);font-weight:600}
+.prof{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:center}
+.prof .av{width:72px;height:72px;margin:0;flex:none}
+.prof h2{margin:0;font-size:18px}.prof p{margin:2px 0 8px;color:var(--mu);font-size:14px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--bd);background:transparent;border-radius:999px;padding:6px 14px;font-size:13px;color:var(--mu)}
+.chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.tile{position:relative;aspect-ratio:1;border:0;padding:0;overflow:hidden;background:var(--sf)}
+.art{position:absolute;inset:0}
+.lk .art{filter:blur(14px) saturate(.8);transform:scale(1.2)}
+.ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;font-size:12px;font-weight:600;background:rgba(10,6,20,.35)}
+.ov svg{width:22px;height:22px}
+.tag{position:absolute;top:6px;right:6px;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.tag svg{width:18px;height:18px;display:block}
+.empty{grid-column:1/-1;padding:40px 0;text-align:center;color:var(--mu)}
+.scrim{position:fixed;inset:0;z-index:20;background:rgba(8,4,16,.7);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--sf);width:100%;max-width:480px;border-radius:20px 20px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:92%;overflow:auto;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.sheet{animation:none}}
+@media(min-width:560px){.scrim{align-items:center}.sheet{border-radius:20px}}
+.sheet h3{margin:0 0 4px;font-size:19px}.sheet p{margin:0 0 14px;color:var(--mu)}
+.field{width:100%;padding:13px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:17px;margin-bottom:12px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px;cursor:pointer}
+.opt:has(input:checked){border-color:var(--ac)}
+.opt b{display:block}.opt small{color:var(--mu)}.opt .pr{margin-left:auto;font-weight:800;white-space:nowrap}
+.view{aspect-ratio:1;border-radius:14px;position:relative;margin-bottom:12px;overflow:hidden}
+.play{position:absolute;inset:0;display:grid;place-items:center}
+.play i{width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,.5);display:grid;place-items:center;color:#fff;font-style:normal;font-size:24px;padding-left:4px}
+.x{float:right;background:none;border:0;font-size:22px;color:var(--mu)}
+.note{font-size:12px;color:var(--mu);text-align:center;margin-top:10px}
+.err{color:var(--ac);font-size:13px;margin:-6px 0 10px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:30;display:none}
+</style></head><body>
+<header><div class="logo"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--ac)"/><path d="M12 8v15h10" fill="none" stroke="var(--on)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="10" r="2.6" fill="var(--gd)"/></svg>Ladies Studio</div><div id="auth"></div></header>
+<div class="wrap">
+<div class="srch"><input id="q" type="search" placeholder="Cari kreator" aria-label="Cari kreator" oninput="S.q=this.value;render()"><select id="so" aria-label="Urutkan kreator" onchange="S.s=this.value;render()"><option value="new">Terbaru</option><option value="az">A–Z</option></select></div>
+<div class="creators" id="creators"></div>
+<div id="prof"></div>
+<div class="chips" id="chips"></div>
+<div class="grid" id="grid"></div>
+</div>
+<div id="modal"></div><div id="toast" role="status"></div>
+<script>
+const C=[{id:0,n:"Nadia Larasati",h:0,bio:"Fotografer potret & street, Bandung",sub:39000},{id:1,n:"Raisa Pratiwi",h:18,bio:"Videografer perjalanan dan kuliner",sub:49000},{id:2,n:"Sekar Ayu",h:36,bio:"Kreator gaya hidup, Jakarta",sub:59000},{id:3,n:"Dinda Arumi",h:54,bio:"Fotografi alam dan hiking",sub:69000},{id:4,n:"Anindya Putri",h:72,bio:"Model dan kreator fashion, Surabaya",sub:79000},{id:5,n:"Bunga Maharani",h:90,bio:"Fotografer pernikahan dan acara",sub:39000},{id:6,n:"Citra Kirana",h:108,bio:"Kreator konten kopi dan kafe",sub:49000},{id:7,n:"Dewi Safitri",h:126,bio:"Videografer musik dan konser",sub:59000},{id:8,n:"Eka Wulandari",h:144,bio:"Fotografi arsitektur dan interior",sub:69000},{id:9,n:"Fitri Handayani",h:162,bio:"Kreator kebugaran dan yoga",sub:79000},{id:10,n:"Gita Permata",h:180,bio:"Fotografer potret & street, Bandung",sub:39000},{id:11,n:"Hana Kusuma",h:198,bio:"Videografer perjalanan dan kuliner",sub:49000},{id:12,n:"Indah Lestari",h:216,bio:"Kreator gaya hidup, Jakarta",sub:59000},{id:13,n:"Jasmine Nuraini",h:234,bio:"Fotografi alam dan hiking",sub:69000},{id:14,n:"Kirana Sari",h:252,bio:"Model dan kreator fashion, Surabaya",sub:79000},{id:15,n:"Laras Ayuningtyas",h:270,bio:"Fotografer pernikahan dan acara",sub:39000},{id:16,n:"Mawar Anggraini",h:288,bio:"Kreator konten kopi dan kafe",sub:49000},{id:17,n:"Nabila Zahra",h:306,bio:"Videografer musik dan konser",sub:59000},{id:18,n:"Okta Melati",h:324,bio:"Fotografi arsitektur dan interior",sub:69000},{id:19,n:"Putri Rahayu",h:342,bio:"Kreator kebugaran dan yoga",sub:79000}];
+const T=["Golden hour","Sudut kota","Pagi di pasar","Di balik layar","Hujan sore","Studio hari ini","Jalan kaki malam","Warna senja"];
+const I=Array.from({length:80},(_,i)=>{const v=i%3==1;return{id:i,c:(i*7)%20,v,lock:i%5>=2,p:v?25000:15000,t:T[i%8]+" #"+(i+1),h:(i*47)%360}});
+const S={user:null,exp:{},pn:{},code:0,cr:null,f:"all",pend:null,q:"",s:"new",otp:"123456"};
+const $=s=>document.querySelector(s),rp=n=>"Rp"+n.toLocaleString("id-ID");
+const ic={lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>',vid:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'};
+const art=i=>`radial-gradient(circle at 28% 24%,hsl(${i.h} 85% 72%),transparent 52%),radial-gradient(circle at 80% 85%,hsl(${i.h+60} 70% 55%),transparent 50%),linear-gradient(160deg,hsl(${i.h} 55% 42%),hsl(${i.h+50} 50% 22%))`;
+const av=c=>`<div class="av" style="background:linear-gradient(135deg,hsl(${c.h} 80% 60%),hsl(${c.h+50} 70% 40%))">${c.n[0]}</div>`;
+const act=c=>(S.exp[c]||0)>Date.now(),nAct=()=>C.filter(c=>act(c.id)).length,ok=i=>!i.lock||act(i.c);
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
+function render(){
+ $("#auth").innerHTML=S.user?`<div class="me"><button class="badge ${nAct()?"":"off"}" style="background:none" onclick="mySubs()">${nAct()?"VIP: "+nAct()+" kreator":"Belum berlangganan"}</button><button class="btn ghost" onclick="logout()">Keluar</button></div>`:`<button class="btn" onclick="loginOpen()">Masuk dengan WA</button>`;
+ $("#creators").innerHTML=`<button class="cr ${S.cr===null?"on":""}" onclick="pick(null)"><div class="av" style="background:var(--sf);color:var(--tx)">★</div><span>Semua</span></button>`+(cl().map(c=>`<button class="cr ${S.cr===c.id?"on":""}" onclick="pick(${c.id})">${av(c)}<span>${c.n.split(" ")[0]}</span></button>`).join("")||'<span class="empty" style="padding:20px 8px;white-space:nowrap">Kreator tidak ditemukan</span>');
+ const c=C[S.cr];
+ $("#prof").innerHTML=c?`<div class="prof">${av(c)}<div><h2>${c.n}</h2><p>${c.bio} · ${I.filter(i=>i.c==c.id).length} konten</p>${act(c.id)?`<span class="badge">VIP s.d. ${fd(S.exp[c.id])}</span> <button class="btn ghost" style="padding:4px 12px;font-size:13px" onclick="subOpen(${c.id})">Perpanjang</button>`:(S.pn[c.id]?'<span class="badge off">Menunggu konfirmasi admin</span>':`<button class="btn" onclick="subOpen(${c.id})">Langganan VIP ${rp(PRICE)}/bln</button>`)}</div></div>`:"";
+ $("#chips").innerHTML=[["all","Semua"],["foto","Foto"],["video","Video"],["free","Gratis"],["lock","VIP"]].map(([k,l])=>`<button class="chip ${S.f==k?"on":""}" onclick="S.f='${k}';render()">${l}</button>`).join("");
+ const L=I.filter(i=>(S.cr===null||i.c===S.cr)&&(S.f=="all"||(S.f=="foto"&&!i.v)||(S.f=="video"&&i.v)||(S.f=="free"&&!i.lock)||(S.f=="lock"&&i.lock)));
+ $("#grid").innerHTML=L.length?L.map(i=>{const lk=!ok(i);return`<button class="tile ${lk?"lk":""}" onclick="openItem(${i.id})" aria-label="${i.t}"><div class="art" style="background:${art(i)}"></div>${lk?`<div class="ov">${ic.lock}VIP</div>`:""}${i.v?`<span class="tag">${ic.vid}</span>`:""}</button>`}).join(""):'<div class="empty">Belum ada konten di filter ini.</div>';
+}
+const cl=()=>C.filter(c=>c.n.toLowerCase().includes(S.q.trim().toLowerCase())).sort((a,b)=>S.s=="az"?a.n.localeCompare(b.n):b.id-a.id);
+function pick(id){S.cr=id;render()}
+function modal(h){$("#modal").innerHTML=`<div class="scrim" onclick="if(event.target===this)closeM()"><div class="sheet" role="dialog" aria-modal="true">${h}</div></div>`}
+function closeM(){$("#modal").innerHTML=""}
+function openItem(id){const i=I[id];if(ok(i))return viewer(i);S.pend=id;S.user?pay(i.c):loginOpen()}
+function viewer(i){const c=C[i.c];modal(`<button class="x" onclick="closeM()" aria-label="Tutup">×</button><h3>${i.t}</h3><p>${c.n} · ${i.v?"Video":"Foto"}${i.lock?" · Konten VIP":" · Gratis"}</p><div class="view" style="background:${art(i)}">${i.v?'<div class="play"><i>▶</i></div>':""}</div><p class="note">Prototype: di versi asli, file dimuat lewat tautan aman yang kedaluwarsa.</p>`)}
+function loginOpen(){modal(`<button class="x" onclick="closeM()" aria-label="Tutup">×</button><h3>Masuk dengan WhatsApp</h3><p>Masukkan nomor WhatsApp Anda. Kami kirim kode 6 digit.</p><input class="field" id="wa" inputmode="tel" placeholder="08123456789" autocomplete="tel"><div class="err" id="e"></div><button class="btn block" onclick="sendOtp()">Kirim kode</button><p class="note">Dengan masuk, Anda setuju nomor dipakai untuk login dan notifikasi.</p>`);setTimeout(()=>$("#wa").focus(),50)}
+function sendOtp(){const n=$("#wa").value.replace(/\D/g,"");if(!/^(08|628)\d{8,11}$/.test(n)){$("#e").textContent="Nomor tidak valid. Contoh: 08123456789";return}
+ S.ph=n;modal(`<button class="x" onclick="closeM()" aria-label="Tutup">×</button><h3>Masukkan kode</h3><p>Kode dikirim ke WhatsApp ${n}. <b>Demo: ${S.otp}</b></p><input class="field" id="otp" inputmode="numeric" maxlength="6" placeholder="······" style="letter-spacing:8px;text-align:center"><div class="err" id="e"></div><button class="btn block" onclick="verify()">Verifikasi dan masuk</button><p class="note"><button class="chip" onclick="loginOpen()">Ganti nomor</button></p>`);setTimeout(()=>$("#otp").focus(),50)}
+function verify(){if($("#otp").value!==S.otp){$("#e").textContent="Kode salah. Cek lagi pesan WhatsApp Anda.";return}
+ S.user=S.ph;closeM();render();toast("Berhasil masuk");if(S.pend!==null){const i=I[S.pend];i&&ok(i)?viewer(i):pay(i?i.c:S.pc)}}
+function logout(){S.user=null;S.exp={};S.pn={};render();toast("Anda sudah keluar")}
+function subOpen(c){if(!S.user){S.pend="sub";S.pc=c;return loginOpen()}pay(c)}
+const PRICE=56000,DAY=864e5,fd=t=>new Date(t).toLocaleDateString("id-ID",{day:"numeric",month:"short"});
+const WA={ovo:"0812-0000-0000",gp:"0812-0000-0000",an:"Nama Pemilik"};
+function pay(cid){const c=C[cid],a=act(cid),nx=(a?S.exp[cid]:Date.now())+30*DAY;if(!S.code)S.code=10+Math.floor(Math.random()*90);const amt=PRICE+S.code;
+ modal(`<button class="x" onclick="closeM()" aria-label="Tutup">×</button><h3>${a?"Perpanjang VIP":"Langganan VIP"} ${c.n}</h3><p>${a?`Aktif sampai ${fd(S.exp[cid])}. Setelah perpanjangan, aktif sampai ${fd(nx)}.`:`Buka semua foto dan video VIP milik ${c.n} selama 30 hari.`}</p><p style="margin:0 0 8px;color:var(--tx)"><b>Transfer tepat ${rp(amt)}</b> ke salah satu:</p><div class="opt" style="cursor:default"><div><b>OVO</b><small>${WA.ovo} a.n. ${WA.an}</small></div></div><div class="opt" style="cursor:default"><div><b>GoPay</b><small>${WA.gp} a.n. ${WA.an}</small></div></div><p class="note" style="text-align:left;margin:0 0 12px">Dua angka terakhir (${S.code}) membantu admin mencocokkan pembayaran Anda, jadi jangan dibulatkan. Sekali bayar, tanpa tagihan otomatis.</p><button class="btn block" onclick="paid(${cid},${amt})">Saya sudah bayar</button>`)}
+function paid(cid,amt){S.pn[cid]=amt;S.code=0;modal(`<button class="x" onclick="closeM()" aria-label="Tutup">×</button><h3>Menunggu konfirmasi</h3><p>Admin akan memeriksa pembayaran ${rp(amt)} Anda. VIP ${C[cid].n} aktif setelah dikonfirmasi, dan Anda akan menerima pesan WhatsApp.</p><button class="btn block" onclick="closeM()">Mengerti</button><p class="note"><button class="chip" onclick="approve(${cid})">Demo: anggap admin sudah menyetujui</button></p>`);render()}
+function approve(cid){delete S.pn[cid];S.exp[cid]=(act(cid)?S.exp[cid]:Date.now())+30*DAY;const i=I[S.pend];S.pend=null;closeM();render();toast("Pembayaran dikonfirmasi. VIP "+C[cid].n.split(" ")[0]+" aktif");if(i)viewer(i)}
+function mySubs(){const L=C.filter(c=>act(c.id));modal(`<button class="x" onclick="closeM()" aria-label="Tutup">×</button><h3>Langganan VIP saya</h3><p>${L.length?"Langganan yang sedang aktif:":"Belum ada langganan aktif. Pilih kreator, lalu ketuk Langganan VIP."}</p>${L.map(c=>`<div class="opt" style="cursor:default"><div><b>${c.n}</b><small>Aktif s.d. ${fd(S.exp[c.id])}</small></div><button class="btn" style="margin-left:auto;padding:5px 12px;font-size:13px" onclick="pay(${c.id})">Perpanjang</button></div>`).join("")}`)}
+render();
+</script></body></html>
